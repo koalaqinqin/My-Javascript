@@ -1,0 +1,46 @@
+
+.contain{
+	width:750px;
+	height: 550px;
+	margin: 30px auto;
+	border: 15px solid #ccc;
+	border-radius: 5px;
+	position: relative;
+}
+.nav{
+	width: 750px;
+	position: absolute;
+	bottom: 0px;
+	background: #aaa;
+	text-align: center;
+}
+.image{
+	position: absolute;
+}
+.nav a{
+	display:inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 2px;
+}
+.nav a:hover{
+	box-shadow: 0 0 6px #000;
+}
+#nav_left{
+	background:url(../img/left.gif) no-repeat;
+}
+#nav_right{
+	background: url(../img/right.gif) no-repeat;
+}
+#nav_up{
+	background: url(../img/up.gif) no-repeat;
+}
+#nav_down{
+	background: url(../img/down.gif) no-repeat;
+}
+#nav_out{
+	background: url(../img/zoom_out.gif) no-repeat;
+}
+#nav_in{
+	background: url(../img/zoom_in.gif) no-repeat;
+}  

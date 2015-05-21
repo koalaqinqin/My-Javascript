@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>回到顶部</title>
+	<style type="text/css">
+	.box img{
+		margin: 0 auto;
+	}
+	#btn{
+		width: 40px;
+		height: 40px;
+		background: url(backtop.png) no-repeat left top;
+		position: fixed;
+		left: 50%;
+		bottom:30px;
+		margin-left: 610px;
+		display: none;
+	}
+	#btn:hover{
+		background: #f20000;
+		color: 
+	}
+	</style>
+</head>
+<body>
+	<div class='box'>
+		<img src="tao.png" />
+	</div>
+	<a href="javascript:void(0)" class='link' id='btn'>按钮</a>
+
+</body>
+<script type="text/javascript">
+	function g(id){
+		return document.getElementById(id);
+	}
+/*	window.onload=function(){
+		var btn=g('btn');
+		var timer=null;
+		var isTop=true;
+		//获取界面可视区域的高度
+		var clientH=document.documentElement.clientHeight;
+		alert(clientH);
+		//滚动条滚动时触发，用户是否滚动
+		window.onscroll=function(){
+			var osTop=document.documentElement.scrollTop||document.body.scrollTop;//获取滚动条距离顶部的高度
+			//隐藏显示按钮
+			if (osTop>=clientH) {
+				g('btn').style.display='block';
+			}else{
+				g('btn').style.display='none';
+			}
+			if(!isTop){
+				clearInterval(timer);
+			}
+			isTop=false;
+		}
+		btn.onclick=function(){
+			timer=setInterval(function(){
+				var osTop=document.documentElement.scrollTop||document.body.scrollTop;//获取滚动条距离顶部的高度
+				var ispeed=Math.floor(-osTop/10);
+				document.documentElement.scrollTop=document.body.scrollTop=osTop+ispeed;
+				isTop=true;
+				if (osTop==0) {
+					clearInterval(timer);
+				}
+			},30);
+		}
+	}*/
+	window.onload=function(){
+		var btn=g('btn');
+		var isTop=true;
+		var timer=null;
+		btn.onclick=function(){
+				 timer=setInterval(function(){
+				var osTop=document.documentElement.scrollTop||document.body.scrollTop;
+				var ispeed=Math.floor(-osTop/6);
+				isTop=true;
+				document.documentElement.scrollTop=document.body.scrollTop=osTop+ispeed;
+				if(osTop==0){
+					clearInterval(timer);
+				}
+			},30);
+		}
+		window.onscroll=function(){
+		var osTop=document.documentElement.scrollTop||document.body.scrollTop;
+		var clientH=document.documentElement.clientHeight;
+			if(clientH<=osTop){
+				btn.style.display='block';
+			}else{
+				btn.style.display='none';
+			}
+			if(!isTop){
+				clearInterval(timer);
+			}
+			isTop=false;
+		}
+	} 
+</script>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>可调面板练习一</title>
+	<style type="text/css">
+	body{
+		padding: 0px;
+		margin: 0px;
+		font-size: 14px;
+		color: #333;
+		padding: 100px;
+	}
+	.panel{
+		width: 400px;
+		height: 250px;
+		border: 1px solid #ccc;
+		position: relative;
+	}
+	.panel .title{
+		text-align: center;
+		background: #eee;
+		border: 1px solid #fff;
+		line-height: 30px;
+		font-weight: bold;
+	}
+	.panel .r{
+		width: 10px;
+		height: 100%;
+		background: #ff0000;
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		cursor: e-resize;
+	}
+	.panel .b{
+		width: 100%;
+		height: 10px;
+		background: #00ff00;
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		cursor: n-resize;
+	}
+	.panel .rb{
+		width: 20px;
+		height: 20px;
+		background: #0000ff;
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		cursor: nw-resize;
+	}
+	</style>
+</head>
+<body>
+	<div class='panel' id='panel'>
+		<div class='title'>Resize Panel</div>
+	</div>
+</body>
+<script type="text/javascript">
+		//m_panel 面板  m_ctrl  控制元素   m_start_x  鼠标偏移控制元素的left   m_to_x  鼠标移动后的left
+		var m_panel,m_ctrl,m_type,m_start_x=0,m_start_y=0,m_to_x=0,m_to_y=0,moving=0;
+		var min_left=0,min_top=0;
+	function g(id){
+		return document.getElementById(id);
+	}
+	window.onload=function(){
+		ResizePanel('panel');
+	}
+	function ResizePanel(id){
+		m_panel=g(id);
+		//step1  建立可调面板控制元素
+		var r=document.createElement('div');
+		var b=document.createElement('div');
+		var rb=document.createElement('div');
+		r.class=r.className='r ui-panel-ctrl';
+		b.class=b.className='b ui-panel-ctrl';
+		rb.class=rb.className='rb ui-panel-ctrl';
+		m_panel.appendChild(r);
+		m_panel.appendChild(b);
+		m_panel.appendChild(rb);
+		//step2 让控制元素支持拖动
+		r.addEventListener('mousedown',function(e){
+			//onmousedown(e,panel,ctrl,type);
+			onmousedown(e,m_panel,r,'r');
+		});
+		b.addEventListener('mousedown',function(e){
+			onmousedown(e,m_panel,b,'b');
+		});
+		rb.addEventListener('mousedown',function(e){
+			onmousedown(e,m_panel,rb,'rb');
+		});
+	}
+	function onmousedown(e,panel,ctrl,type){
+		var e=e||window.event;
+		m_panel=panel;
+		m_ctrl=ctrl;
+		m_type=type;
+		m_start_x=e.pageX-m_ctrl.offsetLeft;
+		m_start_y=e.pageY-m_ctrl.offsetTop;
+		moving=1;
+	}
+	document.onmousemove=function(e){
+		var e=e||window.event;
+		m_to_x=e.pageX;
+		m_to_y=e.pageY;
+		if(moving){
+			min_left=m_panel.offsetLeft;
+			min_top=m_panel.offsetTop;
+			var to_x=Math.max(min_left,m_to_x - m_start_x);
+			var to_y=Math.max(min_top,m_to_y - m_start_y);
+			switch(m_type){
+				case 'r':m_ctrl.style.left=to_x+'px';
+				m_panel.style.width=to_x+10+'px';
+				break;
+				case 'b':m_ctrl.style.top=to_y+'px';
+				m_panel.style.height=to_y+10+'px';
+				break;
+				case 'rb':m_ctrl.style.left=to_x+'px';
+				m_ctrl.style.top=to_y+'px';
+				m_panel.style.width=to_x+20+'px';
+				m_panel.style.height=to_y+20+'px';
+				break;
+			
+			}
+		}
+	}
+	document.onkeyup=document.onmouseup=function(e){
+		/*clearInterval(moving);*/
+		moving=0;
+		var ctls=document.getElementsByClassName('ui-panel-ctrl');
+		for(var i=0;i<ctls.length;i++){
+			ctls[i].style.left='';
+			ctls[i].style.top='';
+		}
+	}
+</script>
+</html>

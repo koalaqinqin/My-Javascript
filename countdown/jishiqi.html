@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>计时器</title>
+</head>
+<body onload='time()'>
+	<div class='jishi' id='jishi'>
+		<p style='font-size:20px;'>倒计时:</p>
+		<p id='tt'></p>
+	</div>
+</body>
+<script type="text/javascript">
+function time(){
+	var timer=(new Date(2016,4,8,9,9,9))-(new Date());
+	var dd=parseInt(timer/1000/60/60/24,10);
+	var hh=parseInt(timer/1000/60/60%24,10);
+	var mm=parseInt(timer/1000/60%60,10);
+	var ss=parseInt(timer/1000%60,10);
+	dd=check(dd);
+	hh=check(hh);
+	mm=check(mm);
+	ss=check(ss);
+	document.getElementById('tt').innerHTML=dd+"天"+hh+"时"+mm+"分"+ss+"秒";
+	if (timer) {
+		var t=setInterval('time()',1000);
+	}else{
+		clearInterval(t);
+	}
+}
+function check(i){
+	if(i<10){
+		return '0'+i;
+	}else{
+		return i;
+	}
+}
+</script>
+</html>
